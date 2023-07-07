@@ -51,7 +51,6 @@ func add_action(name, direction):
 	pass
 	
 func _physics_process(delta):
-	print(state)
 	if state == states.PLANNING:
 		next_action = pick_next_action()
 		# some display code here
