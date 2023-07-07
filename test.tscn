@@ -369,11 +369,13 @@ position = Vector2( 16, 16 )
 
 [node name="monster" parent="." instance=ExtResource( 3 )]
 position = Vector2( 40, 88 )
+direction_bias = Vector2( -1, -1 )
 
 [node name="monster2" parent="." instance=ExtResource( 3 )]
 position = Vector2( 72, 88 )
 
 [node name="monster3" parent="." instance=ExtResource( 3 )]
 position = Vector2( 104, 88 )
+direction_bias = Vector2( 1, 0 )
 
 [node name="hero" parent="." instance=ExtResource( 4 )]

@@ -1,13 +1,12 @@
 extends KinematicBody2D
 
-export var test = 1
 export var direction_bias = Vector2(1,1)
 
 var speed = 10  # speed in squares/sec
 var velocity = Vector2.ZERO
 var input = Vector2.ZERO
 # goin to use these to determine animation state, etc.
-enum control_states {CONTROLLED, UNCONTROLLED}
+enum control_states {UNCONTROLLED, CONTROLLED}
 export var current_state = control_states.UNCONTROLLED
 
 var grid_size = 16
