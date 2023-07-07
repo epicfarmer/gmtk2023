@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://images/0x72_DungeonTilesetII_v1.6.png" type="Texture" id=1]
 [ext_resource path="res://scripts/basicmovement.gd" type="Script" id=2]
@@ -352,25 +352,6 @@ points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 8, 8 )
 
-[sub_resource type="GDScript" id=5]
-script/source = "extends Timer
-
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = \"text\"
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-"
-
 [node name="test scene" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -394,9 +375,8 @@ hframes = 32
 vframes = 32
 frame = 108
 
-[node name="player@Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="hero"]
 autostart = true
-script = SubResource( 5 )
 
 [node name="monster" type="KinematicBody2D" parent="."]
 position = Vector2( 104, 56 )
@@ -444,4 +424,5 @@ hframes = 32
 vframes = 32
 frame = 108
 
+[connection signal="timeout" from="hero/Timer" to="hero" method="_on_Timer_timeout"]
 [connection signal="body_entered" from="DoorAndSwitch/Switch" to="DoorAndSwitch/Door/CollisionShape2D" method="_on_Switch_body_entered"]
