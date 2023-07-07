@@ -8,6 +8,12 @@ var current_state = control_states.UNCONTROLLED
 
 var grid_size = 16
 
+func set_controlled():
+	current_state = control_states.CONTROLLED
+	
+func set_uncontrolled():
+	current_state = control_states.UNCONTROLLED
+
 func get_input():
 	if Input.is_action_just_pressed("ui_select"):
 		if current_state == control_states.CONTROLLED:

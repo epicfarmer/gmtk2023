@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://images/0x72_DungeonTilesetII_v1.6.png" type="Texture" id=1]
 [ext_resource path="res://DoorAndSwitch.tscn" type="PackedScene" id=2]
 [ext_resource path="res://monster.tscn" type="PackedScene" id=3]
 [ext_resource path="res://hero.tscn" type="PackedScene" id=4]
 [ext_resource path="res://PlayerController.gd" type="Script" id=5]
+[ext_resource path="res://scripts/CursorSelector.gd" type="Script" id=6]
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
@@ -350,6 +351,9 @@ points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
 22/shapes = [  ]
 22/z_index = 0
 
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 8, 8 )
+
 [node name="test scene" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -369,11 +373,28 @@ tile_data = PoolIntArray( 0, 22, 0, 1, 22, 0, 2, 22, 0, 3, 22, 0, 4, 22, 0, 5, 2
 [node name="PlayerController" type="Node" parent="."]
 script = ExtResource( 5 )
 
-[node name="monster" parent="." instance=ExtResource( 3 )]
+[node name="monster" parent="PlayerController" instance=ExtResource( 3 )]
 position = Vector2( 38, 86 )
 
-[node name="monster2" parent="." instance=ExtResource( 3 )]
+[node name="monster2" parent="PlayerController" instance=ExtResource( 3 )]
 position = Vector2( 73, 87 )
 
-[node name="monster3" parent="." instance=ExtResource( 3 )]
+[node name="monster3" parent="PlayerController" instance=ExtResource( 3 )]
 position = Vector2( 104, 88 )
+
+[node name="CursorSelector" type="Area2D" parent="PlayerController"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerController/CursorSelector"]
+scale = Vector2( 0.1, 0.1 )
+shape = SubResource( 4 )
+
+[node name="Sprite" type="Sprite" parent="PlayerController/CursorSelector"]
+rotation = -1.5708
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 1 )
+hframes = 32
+vframes = 32
+frame = 108
