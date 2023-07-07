@@ -6,4 +6,5 @@ func _ready():
 	pass # Replace with function body.
 
 func _on_Switch_body_entered(body):
+	print("Door opened")
 	set_deferred("disabled", true)
