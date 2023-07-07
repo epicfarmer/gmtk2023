@@ -12,10 +12,6 @@ var direction = Vector2.ZERO
 var destination = Vector2.ZERO # only used during move
 var directions = [Vector2(0,1), Vector2(1,0), Vector2(0, -1), Vector2(-1, 0)]
 
-enum control_states {CONTROLLED, UNCONTROLLED}
-var current_state = control_states.UNCONTROLLED
-
-
 # goin to use these to determine animation state, etc.
 enum states {EXECUTE, PLANNING, MOVING, ATTACKING}
 enum actions {ATTACK, MOVE, NO_ACTION}
@@ -52,39 +48,6 @@ func pick_next_action():
 		if not outcome == null:
 			return outcome
 	return [actions.NO_ACTION, null]
-	
-	get_input()
-	if velocity != Vector2.ZERO:
-		return "move"
-	pass # probably going to put raycast in each direction otherwise move in random direction
-
-func get_input():
-	if Input.is_action_just_pressed("ui_select"):
-		print("HERE")
-		if current_state == control_states.CONTROLLED:
-			current_state = control_states.UNCONTROLLED
-		else:
-			current_state = control_states.CONTROLLED
-		print("Current state is ", current_state)
-	if current_state == control_states.CONTROLLED:
-		process_input()
-
-func process_input():
-	if state != states.PLANNING:
-		return
-	if Input.is_action_pressed('right'):
-		velocity.y = 0
-		velocity.x = 1
-	if Input.is_action_pressed('left'):
-		velocity.y = 0
-		velocity.x = -1
-	if Input.is_action_pressed('down'):
-		velocity.x = 0
-		velocity.y = 1
-	if Input.is_action_pressed('up'):
-		velocity.x = 0
-		velocity.y = -1
-
 
 # should probably create action base class to contain stuff
 func add_action(name, direction):
