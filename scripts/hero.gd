@@ -41,10 +41,13 @@ func plan(action, target):
 		return potential_action
 	return null
 
+func choose_target(_action):
+	return PlayerController.get_controlled_monster()
+
 func pick_next_action():
-	var player_controlled_monster = PlayerController.get_controlled_monster()
 	for action in available_actions():
-		var outcome = plan(action, player_controlled_monster)
+		var target = choose_target(action)
+		var outcome = plan(action, target)
 		if not outcome == null:
 			return outcome
 	return [actions.NO_ACTION, null]
