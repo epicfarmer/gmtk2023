@@ -50,7 +50,7 @@ func pick_next_action():
 	return [actions.NO_ACTION, null]
 
 # should probably create action base class to contain stuff
-func add_action(name, direction):
+func add_action(_name, _direction):
 	pass
 
 func set_sprite_direction(d):
@@ -79,7 +79,7 @@ func set_sprite_direction(d):
 
 var cur_rand_direction = null;
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if state == states.PLANNING:
 		next_action = pick_next_action()
 		var action_type = next_action[0]
