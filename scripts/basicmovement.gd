@@ -18,19 +18,24 @@ var current_state = control_states.UNCONTROLLED
 
 # goin to use these to determine animation state, etc.
 enum states {EXECUTE, PLANNING, MOVING, ATTACKING}
+enum actions {ATTACK, MOVE, NO_ACTION}
 var state = states.PLANNING
-var actions = []
 
 onready var PlayerController = get_parent().get_node("PlayerController")
 
 func available_actions():
-	return ["attack", "move"]
+	return [actions.MOVE, actions.ATTACK]
 
 func is_viable(action, target):
 	return true
 
 func _next_action(action, target):
-	pass
+	var delta_position = target.position - position
+	if abs(delta_position.x) > abs(delta_position.y):
+		delta_position.y = 0
+	else:
+		delta_position.x = 0
+	return [action, delta_position]
 
 func plan(action, target):
 	if is_viable(action, target):
@@ -43,6 +48,7 @@ func pick_next_action():
 		var outcome = plan(action, player_controlled_monster)
 		if not outcome == null:
 			return outcome
+	return [actions.NO_ACTION, null]
 	
 	get_input()
 	if velocity != Vector2.ZERO:
