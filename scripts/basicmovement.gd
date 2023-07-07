@@ -30,12 +30,14 @@ func is_viable(action, target):
 	return true
 
 func _next_action(action, target):
+	if target == null:
+		return [action, directions[randi()%4]]
 	var delta_position = target.position - position
 	if abs(delta_position.x) > abs(delta_position.y):
 		delta_position.y = 0
 	else:
 		delta_position.x = 0
-	return [action, delta_position]
+	return [action, delta_position.normalized()]
 
 func plan(action, target):
 	if is_viable(action, target):
