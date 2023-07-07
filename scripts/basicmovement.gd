@@ -117,23 +117,35 @@ var cur_rand_direction = null;
 
 func _physics_process(delta):
 	if state == states.PLANNING:
-		if cur_rand_direction == null:
-			cur_rand_direction = directions[randi()%4]
+
 		next_action = pick_next_action()
-		set_sprite_direction(cur_rand_direction)
+		var action_type = next_action[0]
+		var action_dir = next_action[1]
+		if action_type == actions.NO_ACTION:
+			set_sprite_direction(Vector2(0,0))
+		if action_type == actions.MOVE:
+			indicator.set_frame(0)
+			set_sprite_direction(action_dir)
+		
 		# some display code here
 		return
 	elif state == states.EXECUTE:
+		print(next_action)
 		indicator.set_visible(false)
+		var action_type = next_action[0]
+		var action_dir = next_action[1]
+		if action_type == actions.NO_ACTION:
+			state = states.PLANNING
+			return
+		if action_type == actions.MOVE:
+			state = states.MOVING
+			destination = position + action_dir*TILE_SIZE
+			print(destination)
+			velocity = action_dir * speed
 
-		state = states.MOVING # add other stuff here depending on next_action
-		if velocity == Vector2.ZERO:
-			velocity = cur_rand_direction
-		destination = position + velocity*TILE_SIZE
-		velocity *= speed
-		cur_rand_direction = null
 			
 	if state == states.MOVING:
+
 		velocity = move_and_slide(velocity)
 		if velocity == Vector2.ZERO:
 			state = states.PLANNING
