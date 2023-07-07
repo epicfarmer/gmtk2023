@@ -15,7 +15,7 @@ position = Vector2( 88, 56 )
 texture = ExtResource( 2 )
 hframes = 32
 vframes = 32
-frame = 108
+frame = 66
 
 [node name="SwitchBox" type="CollisionShape2D" parent="Switch"]
 scale = Vector2( 0.8, 0.8 )
@@ -35,6 +35,6 @@ script = ExtResource( 1 )
 texture = ExtResource( 2 )
 hframes = 32
 vframes = 32
-frame = 108
+frame = 36
 
 [connection signal="body_entered" from="Switch" to="Door/CollisionShape2D" method="_on_Switch_body_entered"]

@@ -24,15 +24,15 @@ var state = states.PLANNING
 onready var PlayerController = get_parent().get_node("PlayerController")
 
 func available_actions():
-	return [actions.MOVE, actions.ATTACK]
+	return [actions.ATTACK, actions.MOVE]
 
-func is_viable(action, target):
-	return true
+func is_viable(action_tuple):
+	return action_tuple[0] == actions.MOVE
 
 func _next_action(action, target):
 	if target == null:
 		return [action, directions[randi()%4]]
-	var delta_position = target.position - position
+	var delta_position = (target.position - position) * target.get_direction_bias()
 	if abs(delta_position.x) > abs(delta_position.y):
 		delta_position.y = 0
 	else:
@@ -40,8 +40,9 @@ func _next_action(action, target):
 	return [action, delta_position.normalized()]
 
 func plan(action, target):
-	if is_viable(action, target):
-		return _next_action(action, target)
+	var potential_action = _next_action(action, target)
+	if is_viable(potential_action):
+		return potential_action
 	return null
 
 func pick_next_action():
@@ -117,7 +118,6 @@ var cur_rand_direction = null;
 
 func _physics_process(delta):
 	if state == states.PLANNING:
-
 		next_action = pick_next_action()
 		var action_type = next_action[0]
 		var action_dir = next_action[1]
@@ -142,10 +142,7 @@ func _physics_process(delta):
 			destination = position + action_dir*TILE_SIZE
 			print(destination)
 			velocity = action_dir * speed
-
-			
 	if state == states.MOVING:
-
 		velocity = move_and_slide(velocity)
 		if velocity == Vector2.ZERO:
 			state = states.PLANNING

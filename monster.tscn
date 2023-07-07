@@ -6,8 +6,7 @@
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 8, 8 )
 
-[node name="monster" type="KinematicBody2D"]
-position = Vector2( 104, 56 )
+[node name="Monster" type="KinematicBody2D"]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 1 )
@@ -20,4 +19,4 @@ shape = SubResource( 4 )
 texture = ExtResource( 2 )
 hframes = 32
 vframes = 32
-frame = 108
+frame = 296

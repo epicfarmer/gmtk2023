@@ -27,3 +27,6 @@ func set_uncontrolled():
 
 func set_controlled():
 	pass
+
+func get_direction_bias():
+	return Vector2(1,1)
