@@ -4,14 +4,11 @@ var speed = 10  # speed in squares/sec
 var velocity = Vector2.ZERO
 # goin to use these to determine animation state, etc.
 enum control_states {CONTROLLED, UNCONTROLLED}
-var current_state = control_states.UNCONTROLLED
+var current_state = control_states.CONTROLLED
 
 var grid_size = 16
 
 
-
-func pick_next_action():
-	pass # probably going to put raycast in each directionotherwise move in random direction
 
 func get_input():
 	if Input.is_action_just_pressed("ui_select"):
