@@ -24,9 +24,7 @@ func _input(event):
 	if current_state == control_states.CONTROLLED:
 		process_input(event)
 
-
 func process_input(event):
-
 	if event is InputEventKey:
 		if event.is_action_pressed('right'):
 			input.x += 1

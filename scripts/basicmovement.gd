@@ -21,11 +21,33 @@ enum states {EXECUTE, PLANNING, MOVING, ATTACKING}
 var state = states.PLANNING
 var actions = []
 
+onready var PlayerController = get_parent().get_node("PlayerController")
+
+func available_actions():
+	return ["attack", "move"]
+
+func is_viable(action, target):
+	return true
+
+func _next_action(action, target):
+	pass
+
+func plan(action, target):
+	if is_viable(action, target):
+		return _next_action(action, target)
+	return null
+
 func pick_next_action():
+	var player_controlled_monster = PlayerController.get_controlled_monster()
+	for action in available_actions():
+		var outcome = plan(action, player_controlled_monster)
+		if not outcome == null:
+			return outcome
+	
 	get_input()
 	if velocity != Vector2.ZERO:
 		return "move"
-	pass # probably going to put raycast in each directionotherwise move in random direction
+	pass # probably going to put raycast in each direction otherwise move in random direction
 
 func get_input():
 	if Input.is_action_just_pressed("ui_select"):
