@@ -4,11 +4,9 @@ var speed = 10  # speed in squares/sec
 var velocity = Vector2.ZERO
 # goin to use these to determine animation state, etc.
 enum control_states {CONTROLLED, UNCONTROLLED}
-var current_state = control_states.CONTROLLED
+var current_state = control_states.UNCONTROLLED
 
 var grid_size = 16
-
-
 
 func get_input():
 	if Input.is_action_just_pressed("ui_select"):
@@ -36,7 +34,3 @@ func process_input():
 func _physics_process(_delta):
 	get_input()
 	velocity = move_and_slide(velocity)
-
-
-func is_hero():
-	return false
