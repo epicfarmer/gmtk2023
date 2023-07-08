@@ -13,6 +13,7 @@ var move_time = 1
 var next_action = null
 var direction = Vector2.ZERO
 var destination = Vector2.ZERO # only used during move
+var current_location = Vector2.ZERO
 var directions = [Vector2(0,1), Vector2(1,0), Vector2(0, -1), Vector2(-1, 0)]
 
 # goin to use these to determine animation state, etc.
@@ -143,20 +144,26 @@ func _physics_process(_delta):
 			return
 		if action_type == actions.MOVE:
 			state = states.MOVING
+			current_location = position
 			destination = position + action_dir*TILE_SIZE
-			velocity = action_dir * speed
+			direction = action_dir
 		if action_type == actions.ATTACK:
 			player.play("basic_attack")
 			state = states.ATTACKING
 		next_action = null;
 	if state == states.MOVING:
-		velocity = move_and_slide(velocity)
-		if velocity == Vector2.ZERO:
+		var travel = (position - destination).normalized() 
+		velocity = move_and_slide(direction * speed)
+		if velocity == Vector2.ZERO and position.distance_to(destination) > 0.1:
+			position = current_location
 			state = states.PLANNING
-		elif position.distance_to(destination) < 0.1:
+		if position.distance_to(destination) < 0.1:
 			position = destination
 			state = states.PLANNING
-			velocity = Vector2.ZERO
+
+		
+
+
 
 		
 
