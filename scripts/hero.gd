@@ -67,6 +67,7 @@ func can_attack(target_position):
 
 func can_move(target_position):
 	var rc = collider_check(target_position,$MovementCollider)
+	print(rc)
 	return rc
 
 func collider_check(target_position, collider):
