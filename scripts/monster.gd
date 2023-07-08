@@ -76,6 +76,10 @@ func set_sprite_direction(d):
 
 func _physics_process(_delta):
 	velocity = move_and_slide(velocity)
+	if velocity.length() > 0:
+		get_node("AnimationPlayer").play("move")
+	else:
+		get_node("AnimationPlayer").play("idle")
 	set_sprite_direction(input)
 
 func take_damage():
