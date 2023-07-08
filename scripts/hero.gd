@@ -23,7 +23,10 @@ func available_actions():
 	return [actions.ATTACK, actions.MOVE]
 
 func is_viable(action_tuple):
-	return action_tuple[0] == actions.MOVE
+	if action_tuple[0] == actions.ATTACK:
+		return false
+	if action_tuple[0] == actions.MOVE:
+		return true
 
 func _next_action(action, target):
 	if target == null:
@@ -41,7 +44,29 @@ func plan(action, target):
 		return potential_action
 	return null
 
+func distance_to(target):
+	return (target.position - position).distance_to(Vector2.ZERO)
+
+func can_see(target):
+	var space_state = get_world_2d().direct_space_state
+	var result = space_state.intersect_ray(global_position, target.global_position, [self], 1)
+	print(len(result))
+	if result:
+		return false
+	return true
+
 func choose_target(_action):
+	var possible_targets = get_tree().get_nodes_in_group("Monsters")
+	var chosen_target = null
+	var min_distance = 10000000
+	for target in possible_targets:
+		if (distance_to(target) < min_distance) and can_see(target):
+			print("HERE")
+			min_distance = distance_to(target)
+			chosen_target = target
+	if chosen_target != null:
+		return chosen_target
+	return null
 	return PlayerController.get_controlled_monster()
 
 func pick_next_action():
