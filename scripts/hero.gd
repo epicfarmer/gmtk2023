@@ -36,7 +36,9 @@ func is_viable(action_tuple):
 func _next_action(action, target):
 	if target == null:
 		return [action, directions[randi()%4]]
-	var delta_position = (target.position - position) * target.get_direction_bias()
+	var delta_position = (target.position - position)
+	if action == actions.MOVE:
+		delta_position = delta_position * target.get_direction_bias()
 	if abs(delta_position.x) > abs(delta_position.y):
 		delta_position.y = 0
 	else:
@@ -46,6 +48,7 @@ func _next_action(action, target):
 func plan(action, target):
 	var potential_action = _next_action(action, target)
 	if is_viable(potential_action):
+		#print(potential_action)
 		return potential_action
 	return null
 
@@ -56,19 +59,29 @@ func can_see(target_position):
 	return check_raycast(target_position, 1)
 
 func can_attack(target_position):
-	return not collider_check(target_position,2)
+	var rc = not collider_check(target_position,$AttackingCollider)
+	if rc:
+		print("Can attack")
+	else:
+		print("Can't attack")
+	return rc
 
 func can_move(target_position):
-	return collider_check(target_position, 3)
+	var rc = collider_check(target_position,$MovementCollider)
+	if rc:
+		print("Can move")
+	else:
+		print("Can't move")
+	return rc
 
-func collider_check(target_position, mask):
-	$MovementCollider.position = target_position - position
-	$MovementCollider.collision_mask = 3
-	var bodies_in_the_way = $MovementCollider.get_overlapping_bodies()
+func collider_check(target_position, collider):
+	print(target_position)
+	collider.position = target_position - position
+	var bodies_in_the_way = collider.get_overlapping_bodies()
 	if bodies_in_the_way:
+		print(bodies_in_the_way)
 		return false
 	return true
-
 
 func check_raycast(target_position, mask):
 	var space_state = get_world_2d().direct_space_state
@@ -91,10 +104,13 @@ func choose_target(_action):
 	return null
 
 func pick_next_action():
+	print("A")
 	for action in available_actions():
+		print("  B")
 		var target = choose_target(action)
 		var outcome = plan(action, target)
 		if not outcome == null:
+			print("  C")
 			return outcome
 	return [actions.NO_ACTION, null]
 

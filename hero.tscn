@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/hero.gd" type="Script" id=1]
 [ext_resource path="res://images/0x72_DungeonTilesetII_v1.6.png" type="Texture" id=2]
@@ -103,8 +103,6 @@ tracks/3/keys = {
 "update": 1,
 "values": [ false, true ]
 }
-[sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 8, 8 )
 
 [node name="hero" type="KinematicBody2D"]
 position = Vector2( 40, 56 )
@@ -130,7 +128,6 @@ texture = ExtResource( 3 )
 hframes = 2
 vframes = 2
 
-<<<<<<< HEAD
 [node name="hitboxpoint" type="Position2D" parent="."]
 
 [node name="hitbox" type="Area2D" parent="hitboxpoint"]
@@ -158,7 +155,6 @@ frame = 52
 anims/RESET = SubResource( 6 )
 anims/basic_attack = SubResource( 7 )
 
-=======
 [node name="MovementCollider" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 3
@@ -167,5 +163,12 @@ collision_mask = 3
 scale = Vector2( 0.8, 0.8 )
 shape = SubResource( 5 )
 
->>>>>>> c7efe0c (Added collision detection for planning)
+[node name="AttackingCollider" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackingCollider"]
+scale = Vector2( 0.8, 0.8 )
+shape = SubResource( 5 )
+
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

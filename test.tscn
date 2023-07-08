@@ -370,10 +370,14 @@ position = Vector2( 16, 16 )
 
 [node name="monster" parent="." groups=["Monsters"] instance=ExtResource( 3 )]
 position = Vector2( 40, 88 )
+collision_layer = 6
+collision_mask = 6
 
 [node name="hero" parent="." instance=ExtResource( 4 )]
 
 [node name="Monster" parent="." groups=["Monsters"] instance=ExtResource( 6 )]
 position = Vector2( 104, 88 )
+collision_layer = 6
+collision_mask = 6
 
 [node name="Camera2D" type="Camera2D" parent="."]
