@@ -30,3 +30,6 @@ func _process(delta):
 			enabled = false
 		else:
 			update_monsters()
+
+func set_pressed():
+	pass
