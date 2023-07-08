@@ -3,6 +3,7 @@ extends Node2D
 onready var switch = $Switch
 onready var switchsprite = switch.get_child(0)
 onready var door = $Door
+onready var doorsprite = $Door/Sprite
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -14,3 +15,4 @@ func _on_Switch_body_entered(_body):
 	print("Door opened")
 	door.open()
 	switchsprite.set_frame(418)
+	doorsprite.set_frame(0)
