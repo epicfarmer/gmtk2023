@@ -12,9 +12,9 @@ func _ready():
 	reset_selected()
 
 func _input(event):
-	if event is InputEventMouseMotion:
-		transform.origin = event.position
 	if event is InputEventMouseButton:
+		var viewport = get_viewport()
+		position = viewport.get_mouse_position() + get_parent().get_camera_offset()
 		currently_selected.set_uncontrolled()
 		var other_bodies = get_overlapping_bodies()
 		if len(other_bodies) > 0:

@@ -26,6 +26,8 @@ var state = states.PLANNING
 
 onready var PlayerController = get_parent().get_node("PlayerController")
 
+signal room_entered
+
 func available_actions():
 	return [actions.ATTACK, actions.MOVE]
 
@@ -212,3 +214,9 @@ func die():
 func _on_Hurtbox_area_entered(area):
 	print("D")
 	take_damage()
+
+
+func _on_Roombox_area_entered(area):
+	print("Emitting room entered signal")
+	emit_signal("room_entered", area)
+	pass # Replace with function body.
