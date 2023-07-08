@@ -33,7 +33,7 @@ func set_controlled():
 		float(Input.is_action_pressed("right")) - float(Input.is_action_pressed("left")),
 		float(Input.is_action_pressed("down")) - float(Input.is_action_pressed("up"))
 	)
-	print("HERE")
+	print("Controlling ", self)
 	current_state = control_states.CONTROLLED
 	selectsprite.show()
 	
@@ -89,6 +89,7 @@ func take_damage():
 
 func die():
 	if selected_by != null:
+		print("Deselecting", self)
 		selected_by.reset_selected()
 	queue_free()
 

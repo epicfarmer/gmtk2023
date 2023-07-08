@@ -150,7 +150,6 @@ func set_sprite_direction(d):
 			swordpoint.rotation=3*PI/2
 
 func dir_name(dir):
-	print(dir)
 	if dir == Vector2(1,0):
 		return "right"
 	if dir == Vector2(-1,0):
@@ -215,7 +214,6 @@ func end_attack():
 		state = states.PLANNING
 
 func take_damage():
-	print("Taking damage")
 	health = health - 1
 	if health <= 0:
 		die()
@@ -224,11 +222,9 @@ func die():
 	queue_free()
 
 func _on_Hurtbox_area_entered(area):
-	print("D")
 	take_damage()
 
 
 func _on_Roombox_area_entered(area):
-	print("Emitting room entered signal")
 	emit_signal("room_entered", area)
 	pass # Replace with function body.

@@ -308,6 +308,7 @@ extents = Vector2( 85.5, 37.5 )
 [node name="Room 2" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
+z_index = -1
 tile_set = SubResource( 7 )
 cell_size = Vector2( 16, 16 )
 cell_quadrant_size = 4
