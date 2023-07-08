@@ -130,12 +130,10 @@ func set_sprite_direction(d):
 		indicator.rotation = 0
 
 		if d.x > 0:
-			sprite.set_flip_h(false)
 			indicator.set_flip_h(false)
 			hitboxpoint.rotation = 0
 			swordpoint.rotation = 0
 		if d.x < 0:
-			sprite.set_flip_h(true)
 			indicator.set_flip_h(true)
 			hitboxpoint.rotation=PI
 			swordpoint.rotation=PI
@@ -151,6 +149,18 @@ func set_sprite_direction(d):
 			hitboxpoint.rotation=3*PI/2
 			swordpoint.rotation=3*PI/2
 
+func dir_name(dir):
+	print(dir)
+	if dir == Vector2(1,0):
+		return "right"
+	if dir == Vector2(-1,0):
+		return "left"
+	if dir == Vector2(0,1):
+		return "down"
+	if dir == Vector2(0,-1):
+		return "up"
+	return "down"
+
 func _physics_process(_delta):
 	if state == states.PLANNING:
 		next_action = pick_next_action()
@@ -165,7 +175,7 @@ func _physics_process(_delta):
 			indicator.set_frame(1)
 			set_sprite_direction(action_dir)
 		
-
+		player.play("idle_" + dir_name(action_dir))
 		return
 	elif state == states.EXECUTE:
 		current_action_random = false
@@ -180,8 +190,10 @@ func _physics_process(_delta):
 			current_location = position
 			destination = position + action_dir*TILE_SIZE
 			direction = action_dir
+			player.play("move_"+dir_name(action_dir))
 		if action_type == actions.ATTACK:
-			player.play("basic_attack")
+			#player.play("basic_attack")
+			player.play("attack_" + dir_name(action_dir))
 			state = states.ATTACKING
 		next_action = null;
 	if state == states.MOVING:
