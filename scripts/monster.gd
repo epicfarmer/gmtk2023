@@ -52,3 +52,7 @@ func process_input(event):
 
 func _physics_process(_delta):
 	velocity = move_and_slide(velocity)
+
+
+func _on_Hurtbox_area_entered(area):
+	queue_free()
