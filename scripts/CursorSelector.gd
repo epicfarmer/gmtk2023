@@ -19,7 +19,6 @@ func _input(event):
 		var other_bodies = get_overlapping_bodies()
 		print(other_bodies)
 		if len(other_bodies) > 0:
-			print("HERE")
 			other_bodies[0].set_controlled()
 			other_bodies[0].select(self)
 			currently_selected = other_bodies[0]

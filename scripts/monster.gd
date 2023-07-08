@@ -34,9 +34,7 @@ func set_uncontrolled():
 	current_state = control_states.UNCONTROLLED
 
 func _input(event):
-	print("A")
 	if current_state == control_states.CONTROLLED:
-		print("  B")
 		process_input(event)
 
 func process_input(event):

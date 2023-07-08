@@ -15,6 +15,7 @@ var direction = Vector2.ZERO
 var destination = Vector2.ZERO # only used during move
 var current_location = Vector2.ZERO
 var directions = [Vector2(0,1), Vector2(1,0), Vector2(0, -1), Vector2(-1, 0)]
+var current_action_random = false
 
 # goin to use these to determine animation state, etc.
 enum states {EXECUTE, PLANNING, MOVING, ATTACKING}
@@ -34,7 +35,9 @@ func is_viable(action_tuple):
 		return can_move(position + action_tuple[1] * TILE_SIZE)
 
 func _next_action(action, target):
+	current_action_random = false
 	if target == null:
+		current_action_random = true
 		return [action, directions[randi()%4]]
 	var delta_position = (target.position - position)
 	if action == actions.MOVE:
@@ -53,7 +56,6 @@ func plan(action, target):
 
 func distance_to(target):
 	return position.distance_to(target.position)
-
 
 func can_see(target_position):
 	return check_raycast(target_position, 1)
@@ -94,6 +96,8 @@ func choose_target(_action):
 	return null
 
 func pick_next_action():
+	if current_action_random:
+		return next_action
 	for action in available_actions():
 		var target = choose_target(action)
 		var outcome = plan(action, target)
@@ -155,7 +159,7 @@ func _physics_process(_delta):
 
 		return
 	elif state == states.EXECUTE:
-
+		current_action_random = false
 		indicator.set_visible(false)
 		var action_type = next_action[0]
 		var action_dir = next_action[1]
