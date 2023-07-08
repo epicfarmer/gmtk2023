@@ -70,9 +70,9 @@ func process_input(event):
 func set_sprite_direction(d):
 	if abs(d.x) > 0:
 		if d.x > 0:
-			sprite.set_flip_h(false)
-		if d.x < 0:
 			sprite.set_flip_h(true)
+		if d.x < 0:
+			sprite.set_flip_h(false)
 
 func _physics_process(_delta):
 	velocity = move_and_slide(velocity)
@@ -93,3 +93,4 @@ func _on_Hurtbox_area_entered(area):
 	
 func _ready():
 	set_uncontrolled()
+	get_node("AnimationPlayer").play("idle")
