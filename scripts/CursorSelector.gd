@@ -1,6 +1,6 @@
 extends Area2D
 
-var currently_selected = self
+var currently_selected
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -9,7 +9,7 @@ var currently_selected = self
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	reset_selected()
 
 func _input(event):
 	if event is InputEventMouseMotion:
@@ -19,8 +19,13 @@ func _input(event):
 		var other_bodies = get_overlapping_bodies()
 		print(other_bodies)
 		if len(other_bodies) > 0:
+			print("HERE")
 			other_bodies[0].set_controlled()
+			other_bodies[0].select(self)
 			currently_selected = other_bodies[0]
+
+func reset_selected():
+	currently_selected = self
 
 func set_uncontrolled():
 	pass

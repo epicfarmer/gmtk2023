@@ -8,8 +8,15 @@ var input = Vector2.ZERO
 # goin to use these to determine animation state, etc.
 enum control_states {UNCONTROLLED, CONTROLLED}
 export var current_state = control_states.UNCONTROLLED
+var selected_by = null
 
 var grid_size = 16
+
+func select(selector):
+	selected_by = selector
+
+func unselect():
+	selected_by = null
 
 func get_direction_bias():
 	return self.direction_bias
@@ -19,6 +26,7 @@ func set_controlled():
 		float(Input.is_action_pressed("right")) - float(Input.is_action_pressed("left")),
 		float(Input.is_action_pressed("down")) - float(Input.is_action_pressed("up"))
 	)
+	print("HERE")
 	current_state = control_states.CONTROLLED
 	
 func set_uncontrolled():
@@ -26,7 +34,9 @@ func set_uncontrolled():
 	current_state = control_states.UNCONTROLLED
 
 func _input(event):
+	print("A")
 	if current_state == control_states.CONTROLLED:
+		print("  B")
 		process_input(event)
 
 func process_input(event):
@@ -55,4 +65,6 @@ func _physics_process(_delta):
 
 
 func _on_Hurtbox_area_entered(area):
+	if selected_by != null:
+		selected_by.reset_selected()
 	queue_free()
