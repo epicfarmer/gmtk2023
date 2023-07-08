@@ -368,7 +368,7 @@ position = Vector2( 16, 16 )
 
 [node name="PlayerController" parent="." instance=ExtResource( 5 )]
 
-[node name="monster" parent="." groups=["Monsters"] instance=ExtResource( 3 )]
+[node name="monster" parent="." instance=ExtResource( 3 )]
 position = Vector2( 40, 88 )
 collision_layer = 6
 collision_mask = 6

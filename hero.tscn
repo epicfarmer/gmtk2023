@@ -44,10 +44,10 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.001 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ false, true ]
+"values": [ false ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -138,7 +138,6 @@ collision_mask = 16
 [node name="hitbox_bounds" type="CollisionShape2D" parent="hitboxpoint/hitbox"]
 position = Vector2( 2.5, 0 )
 shape = SubResource( 5 )
-disabled = true
 
 [node name="swordpoint" type="Position2D" parent="."]
 
