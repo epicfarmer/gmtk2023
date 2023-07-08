@@ -376,6 +376,12 @@ position = Vector2( 160, 16 )
 
 [node name="Switch" parent="DoorAndSwitch2" instance=ExtResource( 8 )]
 
+[node name="RunAwayMonster" parent="DoorAndSwitch2/Switch" instance=ExtResource( 7 )]
+position = Vector2( -1, -16 )
+
+[node name="RunAwayMonster2" parent="DoorAndSwitch2/Switch" instance=ExtResource( 7 )]
+position = Vector2( 0, 15 )
+
 [node name="PlayerController" parent="." instance=ExtResource( 5 )]
 
 [node name="hero" parent="." instance=ExtResource( 4 )]
