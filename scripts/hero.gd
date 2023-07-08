@@ -31,7 +31,7 @@ func is_viable(action_tuple):
 		return false
 	if action_tuple[0] == actions.MOVE:
 		#return true
-		return can_see(position + action_tuple[1] * TILE_SIZE)
+		return can_move(position + action_tuple[1] * TILE_SIZE)
 
 func _next_action(action, target):
 	if target == null:
@@ -53,8 +53,18 @@ func distance_to(target):
 	return position.distance_to(target.position)
 
 func can_see(target_position):
+	return check_raycast(target_position, 1)
+
+func can_move(target_position):
+	$MovementCollider.position = target_position - position
+	var bodies_in_the_way = $MovementCollider.get_overlapping_bodies()
+	if bodies_in_the_way:
+		return false
+	return true
+
+func check_raycast(target_position, mask):
 	var space_state = get_world_2d().direct_space_state
-	var result = space_state.intersect_ray(global_position, target_position, [self], 1)
+	var result = space_state.intersect_ray(global_position, target_position, [self], mask)
 	if result:
 		return false
 	return true
