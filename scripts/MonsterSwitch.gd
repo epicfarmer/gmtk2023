@@ -14,6 +14,13 @@ func _ready():
 		monster.set_deferred("transform",initial_transform)
 	pass # Replace with function body.
 
+func update_monsters():
+	var index = len(monsters) - 1
+	while(index >= 0):
+		if not is_instance_valid(monsters[index]):
+			monsters.remove(index)
+		index = index - 1
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if enabled:
@@ -21,3 +28,5 @@ func _process(delta):
 			emit_signal("body_entered", self)
 			print("signal emitted")
 			enabled = false
+		else:
+			update_monsters()
