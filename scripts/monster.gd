@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 export var direction_bias = Vector2(1,1)
+export(float) var timer_bias = 1
 
 var speed = 5  # speed in squares/sec
 var velocity = Vector2.ZERO
@@ -10,6 +11,7 @@ onready var sprite = $Sprite
 enum control_states {UNCONTROLLED, CONTROLLED}
 export var current_state = control_states.UNCONTROLLED
 var selected_by = null
+onready var health = 2
 
 var grid_size = 16
 
@@ -21,6 +23,9 @@ func unselect():
 
 func get_direction_bias():
 	return self.direction_bias
+
+func get_timer_bias():
+	return self.timer_bias
 
 func set_controlled():
 	input = Vector2(
@@ -70,7 +75,15 @@ func _physics_process(_delta):
 	velocity = move_and_slide(velocity)
 	set_sprite_direction(input)
 
-func _on_Hurtbox_area_entered(area):
+func take_damage():
+	health = health - 1
+	if health <= 0:
+		die()
+
+func die():
 	if selected_by != null:
 		selected_by.reset_selected()
 	queue_free()
+
+func _on_Hurtbox_area_entered(area):
+	take_damage()

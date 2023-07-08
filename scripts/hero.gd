@@ -7,6 +7,7 @@ onready var indicator = $ActionIndicator
 onready var hitboxpoint = $hitboxpoint
 onready var swordpoint = $swordpoint
 onready var player = $AnimationPlayer
+onready var timer = $Timer
 
 var TILE_SIZE = 16
 var move_time = 1
@@ -16,6 +17,7 @@ var destination = Vector2.ZERO # only used during move
 var current_location = Vector2.ZERO
 var directions = [Vector2(0,1), Vector2(1,0), Vector2(0, -1), Vector2(-1, 0)]
 var current_action_random = false
+var health = 6
 
 # goin to use these to determine animation state, etc.
 enum states {EXECUTE, PLANNING, MOVING, ATTACKING}
@@ -34,6 +36,11 @@ func is_viable(action_tuple):
 		#return true
 		return can_move(position + action_tuple[1] * TILE_SIZE)
 
+func update_time(potential_action, target):
+	print("Updating timer")
+	timer.wait_time = 1.0 * target.get_timer_bias()
+	print(timer.wait_time)
+
 func _next_action(action, target):
 	current_action_random = false
 	if target == null:
@@ -51,6 +58,7 @@ func _next_action(action, target):
 func plan(action, target):
 	var potential_action = _next_action(action, target)
 	if is_viable(potential_action):
+		update_time(potential_action, target)
 		return potential_action
 	return null
 
@@ -66,6 +74,7 @@ func can_attack(target_position):
 
 func can_move(target_position):
 	var rc = collider_check(target_position,$MovementCollider)
+	print(rc)
 	return rc
 
 func collider_check(target_position, collider):
@@ -141,7 +150,6 @@ func set_sprite_direction(d):
 			hitboxpoint.rotation=3*PI/2
 			swordpoint.rotation=3*PI/2
 
-
 func _physics_process(_delta):
 	if state == states.PLANNING:
 		next_action = pick_next_action()
@@ -185,14 +193,7 @@ func _physics_process(_delta):
 			position = destination
 			state = states.PLANNING
 
-		
-
-
-
-		
-
 func _on_Timer_timeout():
-
 	if state == states.PLANNING and next_action != null:
 		state = states.EXECUTE
 
@@ -200,3 +201,15 @@ func end_attack():
 	if state == states.ATTACKING:
 		state = states.PLANNING
 
+func take_damage():
+	print("Taking damage")
+	health = health - 1
+	if health <= 0:
+		die()
+
+func die():
+	queue_free()
+
+func _on_Hurtbox_area_entered(area):
+	print("D")
+	take_damage()

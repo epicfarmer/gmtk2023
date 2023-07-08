@@ -17,7 +17,6 @@ func _input(event):
 	if event is InputEventMouseButton:
 		currently_selected.set_uncontrolled()
 		var other_bodies = get_overlapping_bodies()
-		print(other_bodies)
 		if len(other_bodies) > 0:
 			other_bodies[0].set_controlled()
 			other_bodies[0].select(self)

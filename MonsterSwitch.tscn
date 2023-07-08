@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scripts/MonsterSwitch.gd" type="Script" id=1]
+
+[node name="Switch" type="Node2D"]
+position = Vector2( 88, 56 )
+script = ExtResource( 1 )
