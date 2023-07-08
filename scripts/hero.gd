@@ -28,7 +28,7 @@ func available_actions():
 
 func is_viable(action_tuple):
 	if action_tuple[0] == actions.ATTACK:
-		return false
+		return can_attack(position + action_tuple[1] * TILE_SIZE)
 	if action_tuple[0] == actions.MOVE:
 		#return true
 		return can_move(position + action_tuple[1] * TILE_SIZE)
@@ -55,12 +55,20 @@ func distance_to(target):
 func can_see(target_position):
 	return check_raycast(target_position, 1)
 
+func can_attack(target_position):
+	return not collider_check(target_position,2)
+
 func can_move(target_position):
+	return collider_check(target_position, 3)
+
+func collider_check(target_position, mask):
 	$MovementCollider.position = target_position - position
+	$MovementCollider.collision_mask = 3
 	var bodies_in_the_way = $MovementCollider.get_overlapping_bodies()
 	if bodies_in_the_way:
 		return false
 	return true
+
 
 func check_raycast(target_position, mask):
 	var space_state = get_world_2d().direct_space_state
