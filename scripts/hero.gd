@@ -7,6 +7,7 @@ onready var indicator = $ActionIndicator
 onready var hitboxpoint = $hitboxpoint
 onready var swordpoint = $swordpoint
 onready var player = $AnimationPlayer
+onready var timer = $Timer
 
 var TILE_SIZE = 16
 var move_time = 1
@@ -35,6 +36,11 @@ func is_viable(action_tuple):
 		#return true
 		return can_move(position + action_tuple[1] * TILE_SIZE)
 
+func update_time(potential_action, target):
+	print("Updating timer")
+	timer.wait_time = 1.0 * target.get_timer_bias()
+	print(timer.wait_time)
+
 func _next_action(action, target):
 	current_action_random = false
 	if target == null:
@@ -52,6 +58,7 @@ func _next_action(action, target):
 func plan(action, target):
 	var potential_action = _next_action(action, target)
 	if is_viable(potential_action):
+		update_time(potential_action, target)
 		return potential_action
 	return null
 

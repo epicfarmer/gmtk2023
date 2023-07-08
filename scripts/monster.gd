@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 export var direction_bias = Vector2(1,1)
+export(float) var timer_bias = 1
 
 var speed = 10  # speed in squares/sec
 var velocity = Vector2.ZERO
@@ -21,6 +22,9 @@ func unselect():
 
 func get_direction_bias():
 	return self.direction_bias
+
+func get_timer_bias():
+	return self.timer_bias
 
 func set_controlled():
 	input = Vector2(

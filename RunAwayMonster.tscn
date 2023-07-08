@@ -4,3 +4,4 @@
 
 [node name="RunAwayMonster" instance=ExtResource( 1 )]
 direction_bias = Vector2( -1, -1 )
+timer_bias = 0.3
