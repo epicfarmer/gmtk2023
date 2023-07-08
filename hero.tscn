@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scripts/hero.gd" type="Script" id=1]
 [ext_resource path="res://images/0x72_DungeonTilesetII_v1.6.png" type="Texture" id=2]
@@ -110,6 +110,9 @@ extents = Vector2( 8, 8 )
 [sub_resource type="RectangleShape2D" id=9]
 extents = Vector2( 8, 8 )
 
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 8, 8 )
+
 [node name="hero" type="KinematicBody2D"]
 position = Vector2( 40, 56 )
 collision_mask = 3
@@ -177,4 +180,12 @@ collision_mask = 4
 scale = Vector2( 0.8, 0.8 )
 shape = SubResource( 9 )
 
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource( 10 )
+
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]

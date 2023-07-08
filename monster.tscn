@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scripts/monster.gd" type="Script" id=1]
 [ext_resource path="res://images/0x72_DungeonTilesetII_v1.6.png" type="Texture" id=2]
@@ -7,6 +7,9 @@
 extents = Vector2( 8, 8 )
 
 [sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 8, 8 )
+
+[sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 8, 8 )
 
 [node name="Monster" type="KinematicBody2D" groups=["Monsters"]]
@@ -30,5 +33,12 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource( 5 )
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 6 )
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]

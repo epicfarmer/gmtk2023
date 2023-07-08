@@ -384,7 +384,7 @@ position = Vector2( 0, 15 )
 
 [node name="PlayerController" parent="." instance=ExtResource( 5 )]
 
-[node name="hero" parent="." instance=ExtResource( 4 )]
+[node name="hero" parent="." groups=["Heroes"] instance=ExtResource( 4 )]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 

@@ -16,6 +16,7 @@ var destination = Vector2.ZERO # only used during move
 var current_location = Vector2.ZERO
 var directions = [Vector2(0,1), Vector2(1,0), Vector2(0, -1), Vector2(-1, 0)]
 var current_action_random = false
+var health = 6
 
 # goin to use these to determine animation state, etc.
 enum states {EXECUTE, PLANNING, MOVING, ATTACKING}
@@ -141,7 +142,6 @@ func set_sprite_direction(d):
 			hitboxpoint.rotation=3*PI/2
 			swordpoint.rotation=3*PI/2
 
-
 func _physics_process(_delta):
 	if state == states.PLANNING:
 		next_action = pick_next_action()
@@ -185,14 +185,7 @@ func _physics_process(_delta):
 			position = destination
 			state = states.PLANNING
 
-		
-
-
-
-		
-
 func _on_Timer_timeout():
-
 	if state == states.PLANNING and next_action != null:
 		state = states.EXECUTE
 
@@ -200,3 +193,15 @@ func end_attack():
 	if state == states.ATTACKING:
 		state = states.PLANNING
 
+func take_damage():
+	print("Taking damage")
+	health = health - 1
+	if health <= 0:
+		die()
+
+func die():
+	queue_free()
+
+func _on_Hurtbox_area_entered(area):
+	print("D")
+	take_damage()

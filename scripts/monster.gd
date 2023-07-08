@@ -9,6 +9,7 @@ var input = Vector2.ZERO
 enum control_states {UNCONTROLLED, CONTROLLED}
 export var current_state = control_states.UNCONTROLLED
 var selected_by = null
+onready var health = 2
 
 var grid_size = 16
 
@@ -61,8 +62,15 @@ func process_input(event):
 func _physics_process(_delta):
 	velocity = move_and_slide(velocity)
 
+func take_damage():
+	health = health - 1
+	if health <= 0:
+		die()
 
-func _on_Hurtbox_area_entered(area):
+func die():
 	if selected_by != null:
 		selected_by.reset_selected()
 	queue_free()
+
+func _on_Hurtbox_area_entered(area):
+	take_damage()
