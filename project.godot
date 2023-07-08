@@ -15,7 +15,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Gmtk 2023"
-run/main_scene="res://test.tscn"
+run/main_scene="res://Level.tscn"
 config/icon="res://icon.png"
 
 [display]
