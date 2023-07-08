@@ -14,5 +14,4 @@ func _ready():
 func _on_Switch_body_entered(_body):
 	print("Door opened")
 	door.open()
-	switchsprite.set_frame(418)
-	doorsprite.set_frame(0)
+	switch.set_pressed()
