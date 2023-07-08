@@ -7,7 +7,7 @@ var speed = 5  # speed in squares/sec
 var velocity = Vector2.ZERO
 var input = Vector2.ZERO
 onready var sprite = $Sprite
-onready var selectsprite = $SelectSprite
+onready var selectsprite = $Sprite2
 # goin to use these to determine animation state, etc.
 enum control_states {UNCONTROLLED, CONTROLLED}
 export var current_state = control_states.UNCONTROLLED
