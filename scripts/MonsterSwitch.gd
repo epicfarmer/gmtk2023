@@ -1,23 +1,22 @@
 extends Node2D
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
 onready var monsters = get_children()
+onready var scene = get_tree().get_root().get_child(0)
 var enabled = true
 signal body_entered(_body)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	for monster in monsters:
+		var initial_transform = monster.global_transform
+		remove_child(monster)
+		scene.call_deferred("add_child", monster)
+		monster.set_deferred("transform",initial_transform)
 	pass # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if enabled:
-		print(monsters)
 		if len(monsters) == 0:
 			emit_signal("body_entered", self)
 			print("signal emitted")
