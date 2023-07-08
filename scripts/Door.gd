@@ -1,10 +1,9 @@
-extends CollisionShape2D
+extends StaticBody2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	disabled = false
 	pass # Replace with function body.
 
-func _on_Switch_body_entered(_body):
+func open():
 	print("Door opened")
-	set_deferred("disabled", true)
+	$CollisionShape2D.set_deferred("disabled", true)
