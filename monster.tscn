@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scripts/monster.gd" type="Script" id=1]
 [ext_resource path="res://images/0x72_DungeonTilesetII_v1.6.png" type="Texture" id=2]
+[ext_resource path="res://images/indicators.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 7.20856, 5.50622 )
@@ -27,6 +28,14 @@ texture = ExtResource( 2 )
 hframes = 32
 vframes = 32
 frame = 296
+
+[node name="Sprite2" type="Sprite" parent="."]
+position = Vector2( 0, -18.9531 )
+rotation = 1.56686
+scale = Vector2( 0.483707, 0.366955 )
+texture = ExtResource( 3 )
+hframes = 3
+vframes = 2
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 16
