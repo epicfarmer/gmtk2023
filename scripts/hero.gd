@@ -37,9 +37,9 @@ func is_viable(action_tuple):
 		return can_move(position + action_tuple[1] * TILE_SIZE)
 
 func update_time(potential_action, target):
-	print("Updating timer")
-	timer.wait_time = 1.0 * target.get_timer_bias()
-	print(timer.wait_time)
+	timer.wait_time = 1.0
+	if target != null:
+		timer.wait_time = 1.0 * target.get_timer_bias()
 
 func _next_action(action, target):
 	current_action_random = false
@@ -74,7 +74,6 @@ func can_attack(target_position):
 
 func can_move(target_position):
 	var rc = collider_check(target_position,$MovementCollider)
-	print(rc)
 	return rc
 
 func collider_check(target_position, collider):
