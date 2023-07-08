@@ -4,6 +4,9 @@ export var speed = 32  # speed in pixels/sec
 var velocity = Vector2.ZERO
 onready var sprite = $Sprite
 onready var indicator = $ActionIndicator
+onready var hitboxpoint = $hitboxpoint
+onready var swordpoint = $swordpoint
+onready var player = $AnimationPlayer
 
 var TILE_SIZE = 16
 var move_time = 1
@@ -69,18 +72,25 @@ func set_sprite_direction(d):
 		if d.x > 0:
 			sprite.set_flip_h(false)
 			indicator.set_flip_h(false)
+			hitboxpoint.rotation = 0
+			swordpoint.rotation = 0
 		if d.x < 0:
 			sprite.set_flip_h(true)
 			indicator.set_flip_h(true)
+			hitboxpoint.rotation=PI
+			swordpoint.rotation=PI
 	if abs(d.y) > 0:
 		indicator.rotation = PI/2
 
 		if d.y > 0:
 			indicator.set_flip_h(false)
+			hitboxpoint.rotation=PI/2
+			swordpoint.rotation = PI/2
 		else:
 			indicator.set_flip_h(true)
+			hitboxpoint.rotation=3*PI/2
+			swordpoint.rotation=3*PI/2
 
-var cur_rand_direction = null;
 
 func _physics_process(_delta):
 	if state == states.PLANNING:
@@ -92,11 +102,14 @@ func _physics_process(_delta):
 		if action_type == actions.MOVE:
 			indicator.set_frame(0)
 			set_sprite_direction(action_dir)
+		if action_type == actions.ATTACK:
+			indicator.set_frame(1)
+			set_sprite_direction(action_dir)
 		
-		# some display code here
+
 		return
 	elif state == states.EXECUTE:
-		print(next_action)
+
 		indicator.set_visible(false)
 		var action_type = next_action[0]
 		var action_dir = next_action[1]
@@ -106,8 +119,11 @@ func _physics_process(_delta):
 		if action_type == actions.MOVE:
 			state = states.MOVING
 			destination = position + action_dir*TILE_SIZE
-			print(destination)
 			velocity = action_dir * speed
+		if action_type == actions.ATTACK:
+			player.play("basic_attack")
+			state = states.ATTACKING
+		next_action = null;
 	if state == states.MOVING:
 		velocity = move_and_slide(velocity)
 		if velocity == Vector2.ZERO:
@@ -117,10 +133,14 @@ func _physics_process(_delta):
 			state = states.PLANNING
 			velocity = Vector2.ZERO
 
+		
+
 func _on_Timer_timeout():
 
-	if state == states.PLANNING:
+	if state == states.PLANNING and next_action != null:
 		state = states.EXECUTE
 
-	
+func end_attack():
+	if state == states.ATTACKING:
+		state = states.PLANNING
 

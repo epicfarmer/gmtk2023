@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/hero.gd" type="Script" id=1]
 [ext_resource path="res://images/0x72_DungeonTilesetII_v1.6.png" type="Texture" id=2]
@@ -6,6 +6,103 @@
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 8, 8 )
+
+[sub_resource type="CapsuleShape2D" id=5]
+radius = 7.5
+height = 5.0
+
+[sub_resource type="Animation" id=6]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("swordpoint/sword:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 11, -6 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("swordpoint/sword:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("hitboxpoint/hitbox/hitbox_bounds:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "basic_attack"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("swordpoint/sword:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 11, -6 ), Vector2( 11, 0 ), Vector2( 11, 3 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("swordpoint/sword:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.4 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "end_attack"
+} ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("hitboxpoint/hitbox/hitbox_bounds:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.1, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
 
 [node name="hero" type="KinematicBody2D"]
 position = Vector2( 40, 56 )
@@ -30,5 +127,31 @@ position = Vector2( 16, 0 )
 texture = ExtResource( 3 )
 hframes = 2
 vframes = 2
+
+[node name="hitboxpoint" type="Position2D" parent="."]
+
+[node name="hitbox" type="Area2D" parent="hitboxpoint"]
+position = Vector2( 8, 0 )
+collision_layer = 16
+collision_mask = 0
+
+[node name="hitbox_bounds" type="CollisionShape2D" parent="hitboxpoint/hitbox"]
+position = Vector2( 2.5, 0 )
+shape = SubResource( 5 )
+
+[node name="swordpoint" type="Position2D" parent="."]
+
+[node name="sword" type="Sprite" parent="swordpoint"]
+visible = false
+position = Vector2( 11, -6 )
+rotation = 1.5708
+texture = ExtResource( 2 )
+hframes = 32
+vframes = 32
+frame = 52
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 6 )
+anims/basic_attack = SubResource( 7 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
