@@ -368,10 +368,10 @@ position = Vector2( 16, 16 )
 
 [node name="PlayerController" parent="." instance=ExtResource( 5 )]
 
-[node name="monster" parent="." instance=ExtResource( 3 )]
+[node name="monster" parent="." groups=["Monsters"] instance=ExtResource( 3 )]
 position = Vector2( 40, 88 )
 
 [node name="hero" parent="." instance=ExtResource( 4 )]
 
-[node name="Monster" parent="." instance=ExtResource( 6 )]
+[node name="Monster" parent="." groups=["Monsters"] instance=ExtResource( 6 )]
 position = Vector2( 104, 88 )
