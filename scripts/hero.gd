@@ -48,38 +48,28 @@ func _next_action(action, target):
 func plan(action, target):
 	var potential_action = _next_action(action, target)
 	if is_viable(potential_action):
-		#print(potential_action)
 		return potential_action
 	return null
 
 func distance_to(target):
 	return position.distance_to(target.position)
 
+
 func can_see(target_position):
 	return check_raycast(target_position, 1)
 
 func can_attack(target_position):
 	var rc = not collider_check(target_position,$AttackingCollider)
-	if rc:
-		print("Can attack")
-	else:
-		print("Can't attack")
 	return rc
 
 func can_move(target_position):
 	var rc = collider_check(target_position,$MovementCollider)
-	if rc:
-		print("Can move")
-	else:
-		print("Can't move")
 	return rc
 
 func collider_check(target_position, collider):
-	print(target_position)
 	collider.position = target_position - position
 	var bodies_in_the_way = collider.get_overlapping_bodies()
 	if bodies_in_the_way:
-		print(bodies_in_the_way)
 		return false
 	return true
 
@@ -104,13 +94,10 @@ func choose_target(_action):
 	return null
 
 func pick_next_action():
-	print("A")
 	for action in available_actions():
-		print("  B")
 		var target = choose_target(action)
 		var outcome = plan(action, target)
 		if not outcome == null:
-			print("  C")
 			return outcome
 	return [actions.NO_ACTION, null]
 
