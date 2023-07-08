@@ -7,6 +7,7 @@ var speed = 5  # speed in squares/sec
 var velocity = Vector2.ZERO
 var input = Vector2.ZERO
 onready var sprite = $Sprite
+onready var selectsprite = $SelectSprite
 # goin to use these to determine animation state, etc.
 enum control_states {UNCONTROLLED, CONTROLLED}
 export var current_state = control_states.UNCONTROLLED
@@ -34,10 +35,12 @@ func set_controlled():
 	)
 	print("HERE")
 	current_state = control_states.CONTROLLED
+	selectsprite.show()
 	
 func set_uncontrolled():
 	input = Vector2.ZERO
 	current_state = control_states.UNCONTROLLED
+	selectsprite.hide()
 
 func _input(event):
 	if current_state == control_states.CONTROLLED:
@@ -87,3 +90,6 @@ func die():
 
 func _on_Hurtbox_area_entered(area):
 	take_damage()
+	
+func _ready():
+	set_uncontrolled()
