@@ -5,7 +5,7 @@
 [ext_resource path="res://monster.tscn" type="PackedScene" id=3]
 [ext_resource path="res://hero.tscn" type="PackedScene" id=4]
 [ext_resource path="res://PlayerController.tscn" type="PackedScene" id=5]
-[ext_resource path="res://run_away_monster.tscn" type="PackedScene" id=6]
+[ext_resource path="res://RunAwayMonster.tscn" type="PackedScene" id=7]
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
@@ -375,9 +375,7 @@ collision_mask = 6
 
 [node name="hero" parent="." instance=ExtResource( 4 )]
 
-[node name="Monster" parent="." groups=["Monsters"] instance=ExtResource( 6 )]
-position = Vector2( 104, 88 )
-collision_layer = 6
-collision_mask = 6
-
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="RunAwayMonster" parent="." instance=ExtResource( 7 )]
+position = Vector2( 104, 88 )
