@@ -30,7 +30,8 @@ func is_viable(action_tuple):
 	if action_tuple[0] == actions.ATTACK:
 		return false
 	if action_tuple[0] == actions.MOVE:
-		return true
+		#return true
+		return can_see(position + action_tuple[1] * TILE_SIZE)
 
 func _next_action(action, target):
 	if target == null:
@@ -49,12 +50,11 @@ func plan(action, target):
 	return null
 
 func distance_to(target):
-	return (target.position - position).distance_to(Vector2.ZERO)
+	return position.distance_to(target.position)
 
-func can_see(target):
+func can_see(target_position):
 	var space_state = get_world_2d().direct_space_state
-	var result = space_state.intersect_ray(global_position, target.global_position, [self], 1)
-	print(len(result))
+	var result = space_state.intersect_ray(global_position, target_position, [self], 1)
 	if result:
 		return false
 	return true
@@ -64,14 +64,13 @@ func choose_target(_action):
 	var chosen_target = null
 	var min_distance = 10000000
 	for target in possible_targets:
-		if (distance_to(target) < min_distance) and can_see(target):
-			print("HERE")
+		if (distance_to(target) < min_distance) and can_see(target.position):
 			min_distance = distance_to(target)
 			chosen_target = target
 	if chosen_target != null:
 		return chosen_target
+	#return PlayerController.get_controlled_monster()
 	return null
-	return PlayerController.get_controlled_monster()
 
 func pick_next_action():
 	for action in available_actions():
