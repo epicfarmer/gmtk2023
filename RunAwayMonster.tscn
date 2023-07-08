@@ -1,7 +1,18 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://monster.tscn" type="PackedScene" id=1]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 7.38974
 
 [node name="RunAwayMonster" instance=ExtResource( 1 )]
 direction_bias = Vector2( -1, -1 )
 timer_bias = 0.3
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2( 0, -1 )
+shape = SubResource( 1 )
+
+[node name="Sprite" parent="." index="1"]
+position = Vector2( -1.334, -7.833 )
+frame = 346

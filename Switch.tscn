@@ -12,7 +12,7 @@ position = Vector2( 88, 56 )
 texture = ExtResource( 1 )
 hframes = 32
 vframes = 32
-frame = 66
+frame = 417
 
 [node name="SwitchBox" type="CollisionShape2D" parent="."]
 scale = Vector2( 0.8, 0.8 )
