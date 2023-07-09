@@ -20,6 +20,7 @@ var current_location = Vector2.ZERO
 var directions = [Vector2(0,1), Vector2(1,0), Vector2(0, -1), Vector2(-1, 0)]
 var current_action_random = false
 var health = 6
+var hero_damage_enabled = false
 
 # goin to use these to determine animation state, etc.
 enum states {EXECUTE, PLANNING, MOVING, ATTACKING}
@@ -245,7 +246,8 @@ func end_attack():
 
 func take_damage():
 	sprite.modulate  = Color(1,0,0)
-	health = health - 1
+	if hero_damage_enabled:
+		health = health - 1
 	if health <= 0:
 		die()
 	else:
