@@ -10,6 +10,7 @@ onready var player = $AnimationPlayer
 onready var emoteplayer = $emoteplayer
 onready var timer = $Timer
 
+var current_target
 var TILE_SIZE = 16
 var move_time = 1
 var next_action = null
@@ -68,8 +69,8 @@ func plan(action, target):
 func distance_to(target):
 	return position.distance_to(target.position)
 
-func can_see(target_position):
-	return check_raycast(target_position, 1)
+func can_see(target):
+	return check_raycast(target, 2)
 
 func can_attack(target_position):
 	var rc = not collider_check(target_position,$AttackingCollider)
@@ -86,29 +87,43 @@ func collider_check(target_position, collider):
 		return false
 	return true
 
-func check_raycast(target_position, mask):
+func check_raycast(target, mask):
 	var space_state = get_world_2d().direct_space_state
-	var result = space_state.intersect_ray(global_position, target_position, [self], mask)
+	var result = space_state.intersect_ray(global_position, target.global_position, [self, target], mask)
+	print(result)
 	if result:
 		return false
 	return true
 
+func release_target():
+	if current_target != null:
+		if is_instance_valid(current_target):
+			current_target.set_untargeted()
+
+func set_target():
+	if current_target != null:
+		if is_instance_valid(current_target):
+			current_target.set_targeted()
+
 func choose_target(_action):
 	var possible_targets = get_tree().get_nodes_in_group("Monsters")
-	var chosen_target = null
-	var min_distance = 10000000
+	print(len(possible_targets), " possible targets")
+	release_target()
+	current_target = null
+	var min_distance = 10000000000000
+	var seeable_targets = 0
 	for target in possible_targets:
-		if target.targeted == true:
-			target.set_untargeted()
-	for target in possible_targets:
-		if (distance_to(target) < min_distance) and can_see(target.position):
+		var seeable = can_see(target)
+		if seeable:
+			seeable_targets = seeable_targets + 1
+		var closest = distance_to(target) < min_distance
+		if seeable and closest:
+			print("Updating taret")
 			min_distance = distance_to(target)
-			chosen_target = target
-			chosen_target.set_targeted()
-	if chosen_target != null:
-		return chosen_target
-	#return PlayerController.get_controlled_monster()
-	return null
+			current_target = target
+	print(seeable_targets, " targets were seeable")
+	set_target()
+	return current_target
 
 func pick_next_action():
 	if current_action_random:
@@ -173,7 +188,6 @@ func _physics_process(_delta):
 		var action_type = next_action[0]
 		var action_dir = next_action[1]
 		var target = next_action[2]
-		print(target)
 		if action_type == actions.NO_ACTION:
 			set_sprite_direction(Vector2(0,0))
 		if action_type == actions.MOVE:

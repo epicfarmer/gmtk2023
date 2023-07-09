@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 export var direction_bias = Vector2(1,1)
-export(float) var timer_bias = 1
+export(float) var timer_bias = 1.0
 
 var speed = 5  # speed in squares/sec
 var velocity = Vector2.ZERO
@@ -17,6 +17,7 @@ var selected_by = null
 onready var health = 2
 
 var grid_size = 16
+
 
 func select(selector):
 	selected_by = selector
@@ -91,10 +92,6 @@ func _physics_process(_delta):
 	else:
 		get_node("AnimationPlayer").play("idle")
 	set_sprite_direction(input)
-	var possible_targets = get_tree().get_nodes_in_group("Monsters")
-	for monster in possible_targets:
-		if monster.targeted and monster != self:
-			self.set_untargeted()
 	if self.targeted == true:
 		targetsprite.show()
 
