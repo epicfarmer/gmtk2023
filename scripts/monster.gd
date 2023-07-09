@@ -47,11 +47,9 @@ func set_uncontrolled():
 	
 func set_targeted():
 	self.targeted = true
-	targetsprite.show()
 	
 func set_untargeted():
 	self.targeted = false
-	targetsprite.hide()
 
 func _on_Timer_timeout():
 	set_untargeted()
@@ -95,6 +93,14 @@ func _physics_process(_delta):
 	else:
 		get_node("AnimationPlayer").play("idle")
 	set_sprite_direction(input)
+	var possible_targets = get_tree().get_nodes_in_group("Monsters")
+	for monster in possible_targets:
+		if monster.targeted and monster != self:
+			self.set_untargeted()
+	if self.targeted == true:
+		targetsprite.show()
+	if self.targeted == false:
+		targetsprite.hide()
 
 func take_damage():
 	health = health - 1
@@ -117,6 +123,6 @@ func _ready():
 	_timer = Timer.new()
 	add_child(_timer)
 	_timer.connect("timeout", self, "_on_Timer_timeout")
-	_timer.set_wait_time(1.0)
+	_timer.set_wait_time(.5)
 	_timer.set_one_shot(false)
 	_timer.start()

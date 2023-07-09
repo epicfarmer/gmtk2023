@@ -97,9 +97,7 @@ func choose_target(_action):
 	var possible_targets = get_tree().get_nodes_in_group("Monsters")
 	var chosen_target = null
 	var min_distance = 10000000
-	for monster in possible_targets:
-		if monster.targeted:
-			monster.set_untargeted()
+
 	for target in possible_targets:
 		if (distance_to(target) < min_distance) and can_see(target.position):
 			min_distance = distance_to(target)
