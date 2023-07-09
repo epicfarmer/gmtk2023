@@ -7,6 +7,7 @@ onready var indicator = $ActionIndicator
 onready var hitboxpoint = $hitboxpoint
 onready var swordpoint = $swordpoint
 onready var player = $AnimationPlayer
+onready var emoteplayer = $emoteplayer
 onready var timer = $Timer
 
 var TILE_SIZE = 16
@@ -47,7 +48,7 @@ func _next_action(action, target):
 	current_action_random = false
 	if target == null:
 		current_action_random = true
-		return [action, directions[randi()%4]]
+		return [action, directions[randi()%4], target]
 	var delta_position = (target.position - position)
 	if action == actions.MOVE:
 		delta_position = delta_position * target.get_direction_bias()
@@ -55,7 +56,7 @@ func _next_action(action, target):
 		delta_position.y = 0
 	else:
 		delta_position.x = 0
-	return [action, delta_position.normalized()]
+	return [action, delta_position.normalized(), target]
 
 func plan(action, target):
 	var potential_action = _next_action(action, target)
@@ -112,12 +113,13 @@ func choose_target(_action):
 func pick_next_action():
 	if current_action_random:
 		return next_action
+
 	for action in available_actions():
 		var target = choose_target(action)
 		var outcome = plan(action, target)
 		if not outcome == null:
 			return outcome
-	return [actions.NO_ACTION, null]
+	return [actions.NO_ACTION, null, null]
 
 # should probably create action base class to contain stuff
 func add_action(_name, _direction):
@@ -165,10 +167,12 @@ func dir_name(dir):
 	return "down"
 
 func _physics_process(_delta):
+
 	if state == states.PLANNING:
 		next_action = pick_next_action()
 		var action_type = next_action[0]
 		var action_dir = next_action[1]
+		var target = next_action[2]
 		if action_type == actions.NO_ACTION:
 			set_sprite_direction(Vector2(0,0))
 		if action_type == actions.MOVE:
@@ -177,7 +181,14 @@ func _physics_process(_delta):
 		if action_type == actions.ATTACK:
 			indicator.set_frame(1)
 			set_sprite_direction(action_dir)
-		
+		if target == null:
+			emoteplayer.play("confused")
+		elif target.get_direction_bias().x > 0:
+			emoteplayer.play("attack")
+		elif target.get_direction_bias().x < 0:
+			emoteplayer.play("run")
+		else:
+			emoteplayer.play("confused")
 		player.play("idle_" + dir_name(action_dir))
 		return
 	elif state == states.EXECUTE:
