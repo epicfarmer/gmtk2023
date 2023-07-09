@@ -254,6 +254,8 @@ func take_damage():
 		sprite.modulate  = Color(1,0,0)
 		get_node("DamageColorTimeout").start()
 
+func play_sword_sound():
+	get_node("AudioStreamPlayer").play()
 
 func die():
 	queue_free()

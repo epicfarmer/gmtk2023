@@ -14,8 +14,6 @@ script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
-hframes = 32
-vframes = 32
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 scale = Vector2( 0.8, 0.8 )

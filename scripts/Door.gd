@@ -10,3 +10,4 @@ func open():
 	collision_layer = collision_layer & (~6)
 	collision_mask = collision_mask & (~6)
 	sprite.set_frame(0)
+	get_parent().get_node("AudioStreamPlayer").play()

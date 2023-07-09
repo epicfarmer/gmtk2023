@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scripts/Door.gd" type="Script" id=1]
 [ext_resource path="res://images/door.png" type="Texture" id=2]
 [ext_resource path="res://scripts/DoorWithSwitch.gd" type="Script" id=3]
+[ext_resource path="res://door.wav" type="AudioStream" id=4]
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 8, 15.816 )
@@ -26,3 +27,6 @@ position = Vector2( 0, -7.87735 )
 texture = ExtResource( 2 )
 hframes = 2
 frame = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )

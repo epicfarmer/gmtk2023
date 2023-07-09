@@ -32,10 +32,10 @@ func get_timer_bias():
 	return self.timer_bias
 
 func set_controlled():
-	input = Vector2(
-		float(Input.is_action_pressed("right")) - float(Input.is_action_pressed("left")),
-		float(Input.is_action_pressed("down")) - float(Input.is_action_pressed("up"))
-	)
+	#input = Vector2(
+	#	float(Input.is_action_pressed("right")) - float(Input.is_action_pressed("left")),
+	#	float(Input.is_action_pressed("down")) - float(Input.is_action_pressed("up"))
+	#)
 	#print("Controlling ", self)
 	current_state = control_states.CONTROLLED
 	#selectsprite.show()
@@ -55,7 +55,8 @@ func set_untargeted():
 
 func _input(event):
 	if current_state == control_states.CONTROLLED:
-		process_input(event)
+		pass
+		#process_input(event)
 
 func process_input(event):
 	if event is InputEventKey:
@@ -77,6 +78,29 @@ func process_input(event):
 			input.y -= -1
 	# Make sure diagonal movement isn't faster
 	velocity = input.normalized() * speed * grid_size
+	
+func process_input2():
+	velocity = Vector2(0,0)
+	input = Vector2(0,0)
+	if Input.is_action_pressed('right'):
+		print('here')
+		input.x += 1
+	if Input.is_action_pressed('left'):
+		input.x += -1
+	if Input.is_action_pressed('down'):
+		input.y += 1
+	if Input.is_action_pressed('up'):
+		input.y += -1
+	#if Input.is_action_released('right'):
+	#	input.x -= 1
+	#if Input.is_action_released('left'):
+	#	input.x -= -1
+	#if Input.is_action_released('down'):
+	#	input.y -= 1
+	#if Input.is_action_released('up'):
+	#	input.y -= -1
+	# Make sure diagonal movement isn't faster
+	velocity = input.normalized() * speed * grid_size
 
 func set_sprite_direction(d):
 	if abs(d.x) > 0:
@@ -86,6 +110,10 @@ func set_sprite_direction(d):
 			sprite.set_flip_h(false)
 
 func _physics_process(_delta):
+	if current_state == control_states.CONTROLLED:
+		process_input2()
+	else:
+		velocity = Vector2(0,0)
 	velocity = move_and_slide(velocity)
 	if velocity.length() > 0:
 		get_node("AnimationPlayer").play("move")

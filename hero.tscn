@@ -1,10 +1,11 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://scripts/hero.gd" type="Script" id=1]
 [ext_resource path="res://images/0x72_DungeonTilesetII_v1.6.png" type="Texture" id=2]
 [ext_resource path="res://images/indicators.png" type="Texture" id=3]
 [ext_resource path="res://images/hero.png" type="Texture" id=4]
 [ext_resource path="res://images/emotes.png" type="Texture" id=5]
+[ext_resource path="res://sword.wav" type="AudioStream" id=6]
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 8, 8 )
@@ -158,9 +159,12 @@ tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0.4 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
 "values": [ {
+"args": [  ],
+"method": "play_sword_sound"
+}, {
 "args": [  ],
 "method": "end_attack"
 } ]
@@ -284,9 +288,12 @@ tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0.4 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
 "values": [ {
+"args": [  ],
+"method": "play_sword_sound"
+}, {
 "args": [  ],
 "method": "end_attack"
 } ]
@@ -410,9 +417,12 @@ tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0.4 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
 "values": [ {
+"args": [  ],
+"method": "play_sword_sound"
+}, {
 "args": [  ],
 "method": "end_attack"
 } ]
@@ -560,9 +570,12 @@ tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
-"times": PoolRealArray( 0.4 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
 "values": [ {
+"args": [  ],
+"method": "play_sword_sound"
+}, {
 "args": [  ],
 "method": "end_attack"
 } ]
@@ -1496,6 +1509,9 @@ anims/run = SubResource( 27 )
 [node name="DamageColorTimeout" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
