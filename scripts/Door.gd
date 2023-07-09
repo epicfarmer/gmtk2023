@@ -7,6 +7,6 @@ func _ready():
 
 func open():
 	print("Door opened")
-	collision_layer = collision_layer & (~4)
-	collision_mask = collision_mask & (~4)
+	collision_layer = collision_layer & (~6)
+	collision_mask = collision_mask & (~6)
 	sprite.set_frame(0)
