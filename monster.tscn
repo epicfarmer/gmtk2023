@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scripts/monster.gd" type="Script" id=1]
 [ext_resource path="res://images/0x72_DungeonTilesetII_v1.6.png" type="Texture" id=2]
-[ext_resource path="res://images/indicators.png" type="Texture" id=3]
+[ext_resource path="res://images/target-indicator.png" type="Texture" id=3]
+[ext_resource path="res://selected.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 7.20856, 5.50622 )
@@ -13,6 +14,134 @@ height = 2.71918
 
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 8, 8 )
+
+[sub_resource type="Animation" id=8]
+length = 0.1
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite2:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 4 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite2:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 2 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite2:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = false
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 2 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite2:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = false
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Sprite2:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = false
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 3.0 ]
+}
+
+[sub_resource type="Animation" id=7]
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite2:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 4 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite2:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 2 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite2:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = false
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 2 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite2:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = false
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Sprite2:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = false
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0.0, 1.0, 2.0, 1.0 ]
+}
 
 [node name="Monster" type="KinematicBody2D" groups=["Monsters"]]
 collision_layer = 6
@@ -30,21 +159,27 @@ vframes = 32
 frame = 296
 
 [node name="Sprite2" type="Sprite" parent="."]
-position = Vector2( 0, -18.9531 )
-rotation = 1.56686
-scale = Vector2( 0.483707, 0.366955 )
-texture = ExtResource( 3 )
-hframes = 3
+visible = false
+position = Vector2( 0, -20 )
+texture = ExtResource( 4 )
+hframes = 2
 vframes = 2
+__meta__ = {
+"_aseprite_wizard_config_": {
+"layer": "",
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"op_exp": false,
+"player": "selectedplayer",
+"source": "res://images/selected.aseprite"
+}
+}
 
 [node name="Sprite3" type="Sprite" parent="."]
-position = Vector2( -12.2837, -16.2973 )
-rotation = 2.15758
-scale = Vector2( 0.352513, 0.413288 )
-texture = ExtResource( 2 )
-hframes = 32
-vframes = 32
-frame = 245
+position = Vector2( -12, -12 )
+texture = ExtResource( 3 )
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 16
@@ -64,6 +199,10 @@ shape = SubResource( 6 )
 [node name="DamageColorTimeout" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+
+[node name="selectedplayer" type="AnimationPlayer" parent="."]
+anims/hide = SubResource( 8 )
+anims/idle = SubResource( 7 )
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 [connection signal="timeout" from="DamageColorTimeout" to="." method="_on_DamageColorTimeout_timeout"]

@@ -173,6 +173,7 @@ func _physics_process(_delta):
 		var action_type = next_action[0]
 		var action_dir = next_action[1]
 		var target = next_action[2]
+		print(target)
 		if action_type == actions.NO_ACTION:
 			set_sprite_direction(Vector2(0,0))
 		if action_type == actions.MOVE:

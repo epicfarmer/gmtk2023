@@ -35,14 +35,16 @@ func set_controlled():
 		float(Input.is_action_pressed("right")) - float(Input.is_action_pressed("left")),
 		float(Input.is_action_pressed("down")) - float(Input.is_action_pressed("up"))
 	)
-	print("Controlling ", self)
+	#print("Controlling ", self)
 	current_state = control_states.CONTROLLED
-	selectsprite.show()
+	#selectsprite.show()
+	#selectsprite.visible=true
 	
 func set_uncontrolled():
 	input = Vector2.ZERO
 	current_state = control_states.UNCONTROLLED
-	selectsprite.hide()
+	#selectsprite.hide()
+	#selectsprite.visible=false
 	
 func set_targeted():
 	self.targeted = true
@@ -95,8 +97,13 @@ func _physics_process(_delta):
 			self.set_untargeted()
 	if self.targeted == true:
 		targetsprite.show()
+
 	if self.targeted == false:
 		targetsprite.hide()
+	if current_state == control_states.CONTROLLED:
+		get_node("selectedplayer").play("idle")
+	else:
+		get_node("selectedplayer").play("hide")
 
 func take_damage():
 	health = health - 1
@@ -108,7 +115,7 @@ func take_damage():
 
 func die():
 	if selected_by != null:
-		print("Deselecting", self)
+		#print("Deselecting", self)
 		selected_by.reset_selected()
 	queue_free()
 
@@ -119,7 +126,8 @@ func _ready():
 	set_uncontrolled()
 	set_untargeted()
 	get_node("AnimationPlayer").play("idle")
-
+	get_node("selectedplayer").play("hide")
+	
 
 func _on_DamageColorTimeout_timeout():
 	sprite.modulate = Color(1,1,1)
