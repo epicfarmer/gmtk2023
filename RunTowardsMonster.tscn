@@ -141,11 +141,10 @@ collision_layer = 266
 collision_mask = 266
 
 [node name="CollisionShape2D" parent="." index="0"]
-position = Vector2( 0, -8 )
 shape = SubResource( 1 )
 
 [node name="Sprite" parent="." index="1"]
-position = Vector2( -0.5, -8 )
+position = Vector2( 0, 0 )
 scale = Vector2( 0.981419, 0.981419 )
 texture = ExtResource( 2 )
 hframes = 2
@@ -164,8 +163,14 @@ __meta__ = {
 }
 }
 
+[node name="Sprite2" parent="." index="2"]
+position = Vector2( 0, -12 )
+
+[node name="Sprite3" parent="." index="3"]
+position = Vector2( -12, -4 )
+
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
-position = Vector2( 0, -5 )
+position = Vector2( 0, 0 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
 anims/idle = SubResource( 2 )
