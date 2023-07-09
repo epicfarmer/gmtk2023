@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://Rooms/PitRoom.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Rooms/FigureEightRoom.tscn" type="PackedScene" id=2]
@@ -13,9 +13,10 @@
 [ext_resource path="res://Rooms/PitApartRoom.tscn" type="PackedScene" id=11]
 [ext_resource path="res://DoorAndSwitch.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Switch.tscn" type="PackedScene" id=13]
-
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 101, 38.5 )
+[ext_resource path="res://Rooms/KillMeRoom.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Rooms/StuckRoom.tscn" type="PackedScene" id=15]
+[ext_resource path="res://MonsterSwitch.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Rooms/TrapRoom.tscn" type="PackedScene" id=17]
 
 [sub_resource type="ConvexPolygonShape2D" id=9]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
@@ -332,29 +333,9 @@ script = ExtResource( 10 )
 
 [node name="RoomColliders" type="Node" parent="."]
 
-[node name="Area2D" type="Area2D" parent="RoomColliders"]
-visible = false
-position = Vector2( 109, 71 )
-collision_layer = 512
-collision_mask = 512
+[node name="Rooms" type="Node2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomColliders/Area2D"]
-position = Vector2( 10, 1.5 )
-shape = SubResource( 1 )
-
-[node name="Area2D2" type="Area2D" parent="RoomColliders"]
-visible = false
-position = Vector2( 333, 71 )
-collision_layer = 512
-collision_mask = 512
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomColliders/Area2D2"]
-position = Vector2( -5, 1.5 )
-shape = SubResource( 1 )
-
-[node name="Node2D" type="Node2D" parent="."]
-
-[node name="TileMap2" type="TileMap" parent="Node2D"]
+[node name="TileMap2" type="TileMap" parent="Rooms"]
 z_index = -1
 tile_set = SubResource( 39 )
 cell_size = Vector2( 16, 16 )
@@ -366,28 +347,55 @@ collision_mask = 15
 format = 1
 tile_data = PoolIntArray( 38, 22, 0, 39, 22, 0, 40, 22, 0, 41, 22, 0, 42, 22, 0, 43, 22, 0, 44, 22, 0, 45, 22, 0, 46, 22, 0, 47, 22, 0, 48, 22, 0, 49, 22, 0, 51, 22, 0, 52, 22, 0, 53, 22, 0, 54, 22, 0, 55, 22, 0, 56, 22, 0, 65555, 22, 0, 65556, 22, 0, 65557, 22, 0, 65558, 22, 0, 65559, 22, 0, 65560, 22, 0, 65561, 22, 0, 65562, 22, 0, 65563, 22, 0, 65564, 22, 0, 65565, 22, 0, 65566, 22, 0, 65567, 22, 0, 65568, 22, 0, 65569, 22, 0, 65570, 22, 0, 65571, 22, 0, 65572, 22, 0, 65573, 22, 0, 65574, 22, 0, 65575, 22, 0, 65576, 22, 0, 65577, 22, 0, 65578, 22, 0, 65579, 22, 0, 65580, 22, 0, 65581, 22, 0, 65582, 22, 0, 65583, 22, 0, 65584, 22, 0, 65585, 22, 0, 65586, 22, 0, 65587, 22, 0, 65588, 22, 0, 65589, 22, 0, 65590, 22, 0, 65591, 22, 0, 65592, 22, 0, 65593, 22, 0, 65594, 22, 0, 65595, 22, 0, 65596, 22, 0, 65597, 22, 0, 65598, 22, 0, 131100, 22, 0, 131101, 22, 0, 131102, 22, 0, 131103, 22, 0, 131104, 22, 0, 131105, 22, 0, 131106, 22, 0, 131107, 22, 0, 131108, 22, 0, 131109, 22, 0, 131133, 22, 0, 131134, 22, 0, 262141, 0, 1, 262142, 0, 2, 262143, 0, 2, 196608, 0, 3, 196627, 22, 0, 196669, 22, 0, 196670, 22, 0, 327677, 0, 196613, 327678, 0, 65542, 327679, 0, 65542, 262144, 0, 65542, 262166, 22, 0, 262205, 22, 0, 262206, 22, 0, 393213, 0, 4, 393214, 0, 5, 393215, 0, 5, 327680, 0, 6, 327695, 22, 0, 327697, 0, 0, 327698, 22, 0, 327699, 22, 0, 327702, 22, 0, 327741, 22, 0, 327742, 22, 0, 393230, 22, 0, 393231, 22, 0, 393276, 22, 0, 393277, 22, 0, 393278, 22, 0, 458766, 22, 0, 458767, 22, 0, 458768, 22, 0, 458769, 22, 0, 458773, 22, 0, 458774, 22, 0, 458775, 22, 0, 458776, 22, 0, 458777, 22, 0, 458778, 22, 0, 458779, 22, 0, 458780, 22, 0, 458781, 22, 0, 458782, 22, 0, 458783, 22, 0, 458784, 22, 0, 458785, 22, 0, 458786, 22, 0, 458787, 22, 0, 458788, 22, 0, 458789, 22, 0, 458790, 22, 0, 458791, 22, 0, 458792, 22, 0, 458793, 22, 0, 458794, 22, 0, 458795, 22, 0, 458796, 22, 0, 458797, 22, 0, 458798, 22, 0, 458799, 22, 0, 458800, 22, 0, 458801, 22, 0, 458802, 22, 0, 458803, 22, 0, 458804, 22, 0, 458805, 22, 0, 458806, 22, 0, 458807, 22, 0, 458808, 22, 0, 458809, 22, 0, 458810, 22, 0, 458811, 22, 0, 458812, 22, 0, 458813, 22, 0, 458814, 22, 0, 524302, 22, 0, 524304, 22, 0, 524310, 22, 0, 524311, 22, 0, 524312, 22, 0, 524313, 22, 0, 524314, 22, 0, 524315, 22, 0, 524316, 22, 0, 524317, 22, 0, 524318, 22, 0, 524319, 22, 0, 524320, 22, 0, 524321, 22, 0, 524322, 22, 0, 524323, 22, 0, 524324, 22, 0, 524325, 22, 0, 524326, 22, 0, 524327, 22, 0, 524328, 22, 0, 524329, 22, 0, 524330, 22, 0, 524331, 22, 0, 524332, 22, 0, 524333, 22, 0, 524334, 22, 0, 524335, 22, 0, 524336, 22, 0, 524337, 22, 0, 524338, 22, 0, 524339, 22, 0, 524340, 22, 0, 524341, 22, 0, 524342, 22, 0, 524343, 22, 0, 524344, 22, 0, 524345, 22, 0, 524346, 22, 0, 524347, 22, 0, 524348, 22, 0, 524349, 22, 0, 524350, 22, 0, 524351, 22, 0, 589851, 22, 0, 589852, 22, 0, 589853, 22, 0, 589854, 22, 0, 589855, 22, 0, 589856, 22, 0, 589857, 22, 0, 589858, 22, 0, 589859, 22, 0, 589860, 22, 0, 589861, 22, 0, 589862, 22, 0, 589863, 22, 0, 589864, 22, 0, 589865, 22, 0, 589866, 22, 0, 589867, 22, 0, 589868, 22, 0, 589869, 22, 0, 589870, 22, 0, 589871, 22, 0, 589872, 22, 0, 589873, 22, 0, 589874, 22, 0, 589875, 22, 0, 589876, 22, 0, 589877, 22, 0, 589878, 22, 0, 589879, 22, 0, 589880, 22, 0 )
 
-[node name="Start Room" parent="Node2D" instance=ExtResource( 9 )]
+[node name="Start Room" parent="Rooms" instance=ExtResource( 9 )]
 position = Vector2( 16, 0 )
 
-[node name="DoorAndSwitch" parent="Node2D/Start Room" instance=ExtResource( 12 )]
+[node name="DoorAndSwitch" parent="Rooms/Start Room" instance=ExtResource( 12 )]
 position = Vector2( -32, -32 )
 
-[node name="Switch" parent="Node2D/Start Room/DoorAndSwitch" instance=ExtResource( 13 )]
-position = Vector2( 349, 87 )
+[node name="Switch" parent="Rooms/Start Room/DoorAndSwitch" instance=ExtResource( 13 )]
+position = Vector2( 344, 88 )
+scale = Vector2( 0.961935, 0.941642 )
 
-[node name="Figure Eight Room2" parent="Node2D" instance=ExtResource( 11 )]
-position = Vector2( 224, 0 )
+[node name="PitApartRoom" parent="Rooms" instance=ExtResource( 11 )]
+position = Vector2( 224, -112 )
 
-[node name="CornerRoom" parent="Node2D" instance=ExtResource( 7 )]
+[node name="CornerRoom" parent="Rooms" instance=ExtResource( 7 )]
 position = Vector2( 583, -291 )
 
-[node name="Pit Room" parent="Node2D" instance=ExtResource( 1 )]
+[node name="Pit Room" parent="Rooms" instance=ExtResource( 1 )]
 position = Vector2( 998, -291 )
 
-[node name="Other Corner Room" parent="Node2D" instance=ExtResource( 8 )]
+[node name="Other Corner Room" parent="Rooms" instance=ExtResource( 8 )]
 position = Vector2( 583, -179 )
 
-[node name="Figure Eight Room" parent="." instance=ExtResource( 2 )]
+[node name="Figure Eight Room" parent="Rooms" instance=ExtResource( 2 )]
 position = Vector2( 16, -112 )
+
+[node name="StuckRoom" parent="Rooms" instance=ExtResource( 15 )]
+position = Vector2( 16, -224 )
+
+[node name="DoorAndSwitch" parent="Rooms/StuckRoom" instance=ExtResource( 12 )]
+position = Vector2( -32, 288 )
+
+[node name="Switch" parent="Rooms/StuckRoom/DoorAndSwitch" instance=ExtResource( 16 )]
+
+[node name="RunAwayMonster" parent="Rooms/StuckRoom/DoorAndSwitch/Switch" instance=ExtResource( 6 )]
+position = Vector2( -16, -305 )
+
+[node name="RunAwayMonster2" parent="Rooms/StuckRoom/DoorAndSwitch/Switch" instance=ExtResource( 6 )]
+position = Vector2( -16, -240 )
+
+[node name="RunAwayMonster3" parent="Rooms/StuckRoom/DoorAndSwitch/Switch" instance=ExtResource( 6 )]
+position = Vector2( 112, -304 )
+
+[node name="RunAwayMonster4" parent="Rooms/StuckRoom/DoorAndSwitch/Switch" instance=ExtResource( 6 )]
+position = Vector2( 112, -240 )
+
+[node name="KillMeRoom" parent="Rooms" instance=ExtResource( 14 )]
+position = Vector2( 224, 0 )
+
+[node name="Trap Room" parent="Rooms" instance=ExtResource( 17 )]
+position = Vector2( 16, 112 )
 
 [connection signal="room_entered" from="hero" to="PlayerController/Camera" method="_on_hero_room_entered"]
