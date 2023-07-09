@@ -229,9 +229,14 @@ func end_attack():
 		state = states.PLANNING
 
 func take_damage():
+	sprite.modulate  = Color(1,0,0)
 	health = health - 1
 	if health <= 0:
 		die()
+	else:
+		sprite.modulate  = Color(1,0,0)
+		get_node("DamageColorTimeout").start()
+
 
 func die():
 	queue_free()
@@ -242,3 +247,7 @@ func _on_Hurtbox_area_entered(area):
 func _on_Roombox_area_entered(area):
 	emit_signal("room_entered", area)
 	pass # Replace with function body.
+
+
+func _on_DamageColorTimeout_timeout():
+	sprite.modulate = Color(1,1,1)

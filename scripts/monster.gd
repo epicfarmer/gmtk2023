@@ -102,6 +102,9 @@ func take_damage():
 	health = health - 1
 	if health <= 0:
 		die()
+	else:
+		sprite.modulate = Color(1,0,0)
+		get_node("DamageColorTimeout").start()
 
 func die():
 	if selected_by != null:
@@ -116,3 +119,7 @@ func _ready():
 	set_uncontrolled()
 	set_untargeted()
 	get_node("AnimationPlayer").play("idle")
+
+
+func _on_DamageColorTimeout_timeout():
+	sprite.modulate = Color(1,1,1)
