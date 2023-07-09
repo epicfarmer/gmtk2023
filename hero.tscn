@@ -1362,8 +1362,9 @@ tracks/4/keys = {
 }
 
 [node name="hero" type="KinematicBody2D"]
-collision_layer = 257
-collision_mask = 257
+position = Vector2( 40, 56 )
+collision_layer = 7
+collision_mask = 7
 script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -1458,7 +1459,7 @@ anims/move_up = SubResource( 23 )
 
 [node name="MovementCollider" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 5
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MovementCollider"]
 scale = Vector2( 0.8, 0.8 )
@@ -1466,7 +1467,7 @@ shape = SubResource( 8 )
 
 [node name="AttackingCollider" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 4
+collision_mask = 256
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackingCollider"]
 scale = Vector2( 0.8, 0.8 )
