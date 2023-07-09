@@ -6,8 +6,11 @@ export(float) var timer_bias = 1
 var speed = 5  # speed in squares/sec
 var velocity = Vector2.ZERO
 var input = Vector2.ZERO
+var _timer = null
+var targeted = false
 onready var sprite = $Sprite
 onready var selectsprite = $Sprite2
+onready var targetsprite = $Sprite3
 # goin to use these to determine animation state, etc.
 enum control_states {UNCONTROLLED, CONTROLLED}
 export var current_state = control_states.UNCONTROLLED
@@ -41,6 +44,17 @@ func set_uncontrolled():
 	input = Vector2.ZERO
 	current_state = control_states.UNCONTROLLED
 	selectsprite.hide()
+	
+func set_targeted():
+	self.targeted = true
+	targetsprite.show()
+	
+func set_untargeted():
+	self.targeted = false
+	targetsprite.hide()
+
+func _on_Timer_timeout():
+	set_untargeted()
 
 func _input(event):
 	if current_state == control_states.CONTROLLED:
@@ -98,4 +112,11 @@ func _on_Hurtbox_area_entered(area):
 	
 func _ready():
 	set_uncontrolled()
+	set_untargeted()
 	get_node("AnimationPlayer").play("idle")
+	_timer = Timer.new()
+	add_child(_timer)
+	_timer.connect("timeout", self, "_on_Timer_timeout")
+	_timer.set_wait_time(1.0)
+	_timer.set_one_shot(false)
+	_timer.start()
