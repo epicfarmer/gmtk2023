@@ -20,6 +20,9 @@ config/icon="res://icon.png"
 
 [display]
 
+window/size/width=624
+window/size/height=336
+window/size/resizable=false
 window/stretch/shrink=4.0
 
 [editor_plugins]
