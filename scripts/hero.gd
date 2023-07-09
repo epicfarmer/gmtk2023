@@ -90,7 +90,6 @@ func collider_check(target_position, collider):
 func check_raycast(target, mask):
 	var space_state = get_world_2d().direct_space_state
 	var result = space_state.intersect_ray(global_position, target.global_position, [self, target], mask)
-	print(result)
 	if result:
 		return false
 	return true
@@ -107,7 +106,6 @@ func set_target():
 
 func choose_target(_action):
 	var possible_targets = get_tree().get_nodes_in_group("Monsters")
-	print(len(possible_targets), " possible targets")
 	release_target()
 	current_target = null
 	var min_distance = 10000000000000
@@ -118,10 +116,8 @@ func choose_target(_action):
 			seeable_targets = seeable_targets + 1
 		var closest = distance_to(target) < min_distance
 		if seeable and closest:
-			print("Updating taret")
 			min_distance = distance_to(target)
 			current_target = target
-	print(seeable_targets, " targets were seeable")
 	set_target()
 	return current_target
 

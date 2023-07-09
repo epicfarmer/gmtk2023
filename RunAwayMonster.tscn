@@ -135,8 +135,6 @@ tracks/4/keys = {
 }
 
 [node name="RunAwayMonster" instance=ExtResource( 1 )]
-collision_layer = 266
-collision_mask = 266
 direction_bias = Vector2( -1, -1 )
 timer_bias = 0.3
 
