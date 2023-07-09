@@ -387,16 +387,16 @@ position = Vector2( -32, 304 )
 [node name="Switch" parent="Rooms/StuckRoom/DoorAndSwitch" instance=ExtResource( 16 )]
 
 [node name="RunAwayMonster" parent="Rooms/StuckRoom/DoorAndSwitch/Switch" instance=ExtResource( 6 )]
-position = Vector2( -16, -305 )
+position = Vector2( -16, -321 )
 
 [node name="RunAwayMonster2" parent="Rooms/StuckRoom/DoorAndSwitch/Switch" instance=ExtResource( 6 )]
-position = Vector2( -16, -240 )
+position = Vector2( -16, -256 )
 
 [node name="RunAwayMonster3" parent="Rooms/StuckRoom/DoorAndSwitch/Switch" instance=ExtResource( 6 )]
-position = Vector2( 112, -304 )
+position = Vector2( 112, -320 )
 
 [node name="RunAwayMonster4" parent="Rooms/StuckRoom/DoorAndSwitch/Switch" instance=ExtResource( 6 )]
-position = Vector2( 112, -240 )
+position = Vector2( 112, -256 )
 
 [node name="KillMeRoom" parent="Rooms" instance=ExtResource( 14 )]
 position = Vector2( 224, 0 )
