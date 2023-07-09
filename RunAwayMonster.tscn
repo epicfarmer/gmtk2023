@@ -139,7 +139,7 @@ direction_bias = Vector2( -1, -1 )
 timer_bias = 0.3
 
 [node name="CollisionShape2D" parent="." index="0"]
-position = Vector2( 0, -1 )
+position = Vector2( 0, -6 )
 shape = SubResource( 1 )
 
 [node name="Sprite" parent="." index="1"]
