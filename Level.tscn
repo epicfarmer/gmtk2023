@@ -363,10 +363,10 @@ scale = Vector2( 0.961935, 0.941642 )
 position = Vector2( 224, -112 )
 
 [node name="DoorAndSwitch" parent="Rooms/PitApartRoom" instance=ExtResource( 12 )]
-position = Vector2( -241, 288 )
+position = Vector2( -241, 305 )
 
 [node name="Switch" parent="Rooms/PitApartRoom/DoorAndSwitch" instance=ExtResource( 13 )]
-position = Vector2( 378, -248 )
+position = Vector2( 378, -265 )
 
 [node name="Pit Room" parent="Rooms" instance=ExtResource( 1 )]
 position = Vector2( -16, -304 )
@@ -383,7 +383,7 @@ position = Vector2( 16, -112 )
 position = Vector2( 16, -224 )
 
 [node name="DoorAndSwitch" parent="Rooms/StuckRoom" instance=ExtResource( 12 )]
-position = Vector2( -32, 288 )
+position = Vector2( -32, 304 )
 
 [node name="Switch" parent="Rooms/StuckRoom/DoorAndSwitch" instance=ExtResource( 16 )]
 
